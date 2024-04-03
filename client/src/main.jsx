@@ -4,7 +4,7 @@ import RouteSwitch from "./RouteSwitch.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 
 const queryClient = new QueryClient();
-import "./index.css";
+import "./index.scss";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

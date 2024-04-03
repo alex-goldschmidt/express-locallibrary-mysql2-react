@@ -1,0 +1,17 @@
+#root {
+  padding: 2rem;
+}
+
+.home {
+  &__header {
+    display: grid;
+    place-items: center;
+    align-items: center;
+  }
+
+  &__stats {
+    display: grid;
+    place-content: center;
+    align-items: center;
+  }
+}

@@ -19,8 +19,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     Genre.queryCount(),
   ]);
 
-  res.render("index", {
-    title: "Local Library Home",
+  res.json({
     bookCount: bookCount,
     bookInstancesCount: bookInstancesCount,
     bookInstancesAvailableCount: bookInstancesAvailableCount,

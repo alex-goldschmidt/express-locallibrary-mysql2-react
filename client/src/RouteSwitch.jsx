@@ -4,7 +4,6 @@ import AuthorsList from "./components/AuthorsList/AuthorsList.jsx";
 const RouteSwitch = () => {
   return (
     <BrowserRouter basename="/">
-      <App />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/authors" element={<AuthorsList />} />

@@ -1,35 +1,56 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import "./App.scss";
+import { useQuery } from "react-query";
+import axios from "axios";
 
-function App() {
-  const [count, setCount] = useState(0);
+const fetchCounts = async () => {
+  const response = await axios.get("http://localhost:3000/catalog/");
+  const countsData = response.data;
+  return countsData;
+};
 
+export const App = () => {
+  const { isLoading, error, data } = useQuery("counts", fetchCounts);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+    <div className="home">
+      <div className="home__header">
+        <h1>Local Library</h1>
         <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+          Welcome to <em>LocalLibrary</em>, a very basic Express website
+          developed as a tutorial example on the Mozilla Developer Network.
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <div className="home__stats">
+        <h1>Dynamic content</h1>
+        <p>The library has the following record counts:</p>
+        <ul className="home__stats--counts">
+          <li>
+            <strong>Books:</strong> {data.bookCount}
+          </li>
+          <li>
+            <strong>Copies:</strong> {data.bookInstancesCount}
+          </li>
+          <li>
+            <strong>Copies available:</strong>
+            {data.bookInstancesAvailableCount}
+          </li>
+          <li>
+            <strong>Authors:</strong> {data.authorCount}
+          </li>
+          <li>
+            <strong>Genres:</strong> {data.genreCount}
+          </li>
+        </ul>
+      </div>
+    </div>
   );
-}
+};
 
 export default App;
