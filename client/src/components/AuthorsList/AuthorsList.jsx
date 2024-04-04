@@ -1,9 +1,21 @@
 import { useQuery } from "react-query";
 import axios from "axios";
+import "./AuthorsList.scss";
 
 const fetchAuthors = async () => {
   const response = await axios.get("http://localhost:3000/catalog/authors");
   return response.data.authorsList;
+};
+
+const renderAuthors = (authors) => {
+  const authorsListContent = authors.map((author) => (
+    <li key={author.authorId}>
+      <a href={`/author/${author.authorId}`}>{author.name} </a>
+      {author.formattedDateOfBirth}-{author.formattedDateOfDeath}
+    </li>
+  ));
+
+  return authorsListContent;
 };
 
 export const AuthorsList = () => {
@@ -18,13 +30,9 @@ export const AuthorsList = () => {
   }
 
   return (
-    <div>
-      <h1>Authors</h1>
-      <ul>
-        {data.map((author) => (
-          <li key={author.authorId}>{author.name}</li>
-        ))}
-      </ul>
+    <div className="authors">
+      <h1 className="authors__header">Authors</h1>
+      <ul className="authors__list">{renderAuthors(data)}</ul>
     </div>
   );
 };

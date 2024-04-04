@@ -1,0 +1,9 @@
+.sidebar {
+  display: flex;
+
+  &-nav {
+    display: grid;
+    list-style-type: none;
+    gap: 3rem;
+  }
+}
