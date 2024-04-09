@@ -22,8 +22,8 @@ export const BooksList = () => {
   return (
     <DataList
       queryKey="books"
-      queryFn={fetchBooks}
-      renderFn={renderBooks}
+      queryFunction={fetchBooks}
+      renderFunction={renderBooks}
       className="books"
       title="Books"
     />

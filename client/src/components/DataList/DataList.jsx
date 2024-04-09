@@ -1,14 +1,6 @@
 import { useQuery } from "react-query";
 import PropTypes from "prop-types";
 
-DataList.propTypes = {
-  queryKey: PropTypes.string.isRequired,
-  queryFunction: PropTypes.func.isRequired,
-  renderFunction: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-};
-
 export const DataList = ({
   queryKey,
   queryFunction,
@@ -32,4 +24,12 @@ export const DataList = ({
       <ul className={`${className}__list`}>{renderFunction(data)}</ul>
     </div>
   );
+};
+
+DataList.propTypes = {
+  queryKey: PropTypes.string.isRequired,
+  queryFunction: PropTypes.func.isRequired,
+  renderFunction: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 };

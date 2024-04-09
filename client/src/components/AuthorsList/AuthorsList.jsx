@@ -20,10 +20,10 @@ export const AuthorsList = () => {
   return (
     <DataList
       queryKey="authors"
-      queryFn={fetchAuthors}
-      renderFn={renderAuthors}
+      queryFunction={fetchAuthors}
+      renderFunction={renderAuthors}
       className="authors"
-      title="authors"
+      title="Authors"
     />
   );
 };
