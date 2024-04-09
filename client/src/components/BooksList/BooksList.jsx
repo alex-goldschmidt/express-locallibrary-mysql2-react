@@ -1,5 +1,6 @@
-import { useQuery } from "react-query";
 import axios from "axios";
+import { DataList } from "../DataList/DataList";
+
 import "./BooksList.scss";
 
 const fetchBooks = async () => {
@@ -18,21 +19,14 @@ const renderBooks = (books) => {
 };
 
 export const BooksList = () => {
-  const { isLoading, error, data } = useQuery("books", fetchBooks);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
-    <div className="books">
-      <h1 className="books__header">Books</h1>
-      <ul className="books__list">{renderBooks(data)}</ul>
-    </div>
+    <DataList
+      queryKey="books"
+      queryFn={fetchBooks}
+      renderFn={renderBooks}
+      className="books"
+      title="Books"
+    />
   );
 };
 
