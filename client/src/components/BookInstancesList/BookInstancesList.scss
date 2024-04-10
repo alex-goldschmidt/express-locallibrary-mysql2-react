@@ -1,0 +1,17 @@
+.bookInstances {
+  margin-left: 10rem;
+}
+
+.bookInstance {
+  &__available {
+    color: green;
+  }
+
+  &__maintenance {
+    color: red;
+  }
+
+  &__loaned {
+    color: yellow;
+  }
+}

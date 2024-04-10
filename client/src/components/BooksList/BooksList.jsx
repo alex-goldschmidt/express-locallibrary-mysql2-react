@@ -9,13 +9,13 @@ const fetchBooks = async () => {
 };
 
 const renderBooks = (books) => {
-  const booksListContent = books.map((book) => (
+  const booksListItems = books.map((book) => (
     <li key={book.bookId}>
       <a href={`/book/${book.bookId}`}>{book.title} </a>- By {book.author}
     </li>
   ));
 
-  return booksListContent;
+  return booksListItems;
 };
 
 export const BooksList = () => {

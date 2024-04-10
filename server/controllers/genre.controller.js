@@ -5,10 +5,12 @@ const { body, validationResult } = require("express-validator");
 // Display list of all Genre.
 exports.queryAllGenres = asyncHandler(async (req, res, next) => {
   const genresList = await Genre.queryAll();
-  res.render("genresList", {
-    title: "List of Genres",
+
+  const response = res.json({
     genresList: genresList,
   });
+
+  return response;
 });
 
 // Display books for a specific Genre ID.

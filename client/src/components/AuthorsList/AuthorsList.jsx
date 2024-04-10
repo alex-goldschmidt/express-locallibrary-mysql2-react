@@ -8,12 +8,14 @@ const fetchAuthors = async () => {
 };
 
 const renderAuthors = (authors) => {
-  return authors.map((author) => (
+  const authorsListItems = authors.map((author) => (
     <li key={author.authorId}>
       <a href={`/author/${author.authorId}`}>{author.name} </a>
       {author.formattedDateOfBirth}-{author.formattedDateOfDeath}
     </li>
   ));
+
+  return authorsListItems;
 };
 
 export const AuthorsList = () => {

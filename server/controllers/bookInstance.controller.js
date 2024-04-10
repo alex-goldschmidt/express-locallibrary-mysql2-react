@@ -6,10 +6,11 @@ const { body, validationResult } = require("express-validator");
 // Display list of all BookInstances.
 exports.queryAllBookInstances = asyncHandler(async (req, res, next) => {
   const bookInstancesList = await BookInstance.queryAll();
-  res.render("bookInstancesList", {
-    title: "Book Instances List",
+  const response = res.json({
     bookInstancesList: bookInstancesList,
   });
+
+  return response;
 });
 
 // Display detail page for a specific BookInstance.
