@@ -4,8 +4,10 @@ import AuthorsList from "./components/AuthorsList/AuthorsList.jsx";
 import BooksList from "./components/BooksList/BooksList.jsx";
 import GenresList from "./components/GenresList/GenresList.jsx";
 import BookInstancesList from "./components/BookInstancesList/BookInstancesList.jsx";
+import GenreDetail from "./components/GenreDetail/GenreDetail.jsx";
 
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
+
 const RouteSwitch = () => {
   return (
     <BrowserRouter basename="/">
@@ -16,6 +18,7 @@ const RouteSwitch = () => {
         <Route path="/books" element={<BooksList />} />
         <Route path="/genres" element={<GenresList />} />
         <Route path="/bookInstances" element={<BookInstancesList />} />
+        <Route path="/genre/:genreId" element={<GenreDetail />} />
       </Routes>
     </BrowserRouter>
   );

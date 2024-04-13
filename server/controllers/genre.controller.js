@@ -24,11 +24,13 @@ exports.queryBooksByGenreId = asyncHandler(async (req, res, next) => {
     err.status = 404;
     return next(err);
   }
-  return res.render("genreDetail", {
-    title: genre.genreName,
+
+  const response = res.json({
     genre: genre,
     booksInGenre: booksInGenre,
   });
+
+  return response;
 });
 
 // Display genre create form on GET.

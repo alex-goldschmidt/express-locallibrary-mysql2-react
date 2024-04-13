@@ -10,6 +10,10 @@ const fetchBookInstances = async () => {
 };
 
 const renderBookInstances = (bookInstances) => {
+  if (!bookInstances) {
+    return <div>No book instances available</div>;
+  }
+
   const BookInstancesListItems = bookInstances.map((bookInstance) => {
     const bookInstanceStatus = bookInstance.status?.trim();
     const dueDate = bookInstance.formattedDueDate;
