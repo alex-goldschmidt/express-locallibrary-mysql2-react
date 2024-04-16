@@ -23,11 +23,12 @@ exports.queryBookInstancesByBookId = asyncHandler(async (req, res, next) => {
     BookInstance.queryBooksByBookInstanceId(bookId),
   ]);
 
-  res.render("bookDetail", {
-    title: book.title,
+  const response = res.json({
     book: book,
     bookInstances: bookInstances,
   });
+
+  return response;
 });
 
 // Display book create form on GET.

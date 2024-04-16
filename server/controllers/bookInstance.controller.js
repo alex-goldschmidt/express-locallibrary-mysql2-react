@@ -18,10 +18,15 @@ exports.queryByBookInstanceId = asyncHandler(async (req, res, next) => {
   const bookInstanceId = req.params.id;
   const bookInstance = await BookInstance.queryByBookInstanceId(bookInstanceId);
 
-  res.render("bookInstanceDetail", {
-    title: `Book: ${bookInstance.title}`,
+  if (!bookInstance) {
+    return;
+  }
+
+  const response = res.json({
     bookInstance: bookInstance,
   });
+
+  return response;
 });
 
 // Display bookInstance create form on GET.
