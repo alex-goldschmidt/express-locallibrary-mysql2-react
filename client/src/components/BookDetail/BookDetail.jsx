@@ -1,23 +1,7 @@
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { DataItem } from "../DataItem/DataItem";
+import { fetchBook } from "../../api/BookApi";
 import "./BookDetail.scss";
-
-const fetchBook = async (bookId) => {
-  const response = await axios.get(
-    `http://localhost:3000/catalog/book/${bookId}`
-  );
-  if (!response || response.status !== 200) {
-    throw new Error("Failed to fetch book data");
-  }
-
-  const data = {
-    book: response.data.book,
-    bookInstances: response.data.bookInstances,
-  };
-
-  return data;
-};
 
 const renderBook = (data) => {
   if (!data.book) {

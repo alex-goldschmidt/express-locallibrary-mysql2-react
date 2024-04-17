@@ -1,13 +1,6 @@
-import axios from "axios";
 import { DataList } from "../DataList/DataList";
+import { fetchBookInstances } from "../../api/BookInstanceApi";
 import "./BookInstancesList.scss";
-
-const fetchBookInstances = async () => {
-  const response = await axios.get(
-    "http://localhost:3000/catalog/bookInstances"
-  );
-  return response.data.bookInstancesList;
-};
 
 const renderBookInstances = (bookInstances) => {
   if (!bookInstances) {

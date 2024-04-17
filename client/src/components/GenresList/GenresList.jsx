@@ -1,11 +1,6 @@
-import axios from "axios";
 import "./GenresList.scss";
 import { DataList } from "../DataList/DataList";
-
-const fetchGenres = async () => {
-  const response = await axios.get("http://localhost:3000/catalog/genres");
-  return response.data.genresList;
-};
+import { fetchGenres } from "../../api/GenreApi";
 
 const renderGenres = (genres) => {
   const genreListItems = genres.map((genre) => (

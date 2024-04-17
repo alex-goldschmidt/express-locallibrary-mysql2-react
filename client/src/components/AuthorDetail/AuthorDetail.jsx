@@ -1,23 +1,7 @@
-import axios from "axios";
 import { useParams } from "react-router-dom";
 import { DataItem } from "../DataItem/DataItem";
+import { fetchAuthor } from "../../api/AuthorApi";
 import "./AuthorDetail.scss";
-
-const fetchAuthor = async (authorId) => {
-  const response = await axios.get(
-    `http://localhost:3000/catalog/author/${authorId}`
-  );
-  if (!response || response.status !== 200) {
-    throw new Error("Failed to fetch author data");
-  }
-
-  const data = {
-    author: response.data.author,
-    authorBooks: response.data.authorBooks,
-  };
-
-  return data;
-};
 
 const renderAuthor = (data) => {
   if (!data.author) {
@@ -27,7 +11,7 @@ const renderAuthor = (data) => {
   const authorTitle = data.author.name;
   const authorBooks = data.authorBooks;
 
-  if (authorBooks.length === 0 || !authorBooks) {
+  if (!authorBooks || authorBooks.length === 0) {
     return (
       <div className="author">
         <h1>{authorTitle}</h1>

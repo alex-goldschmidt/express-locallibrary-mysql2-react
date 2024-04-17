@@ -1,11 +1,6 @@
-import axios from "axios";
 import "./AuthorsList.scss";
 import { DataList } from "../DataList/DataList";
-
-const fetchAuthors = async () => {
-  const response = await axios.get("http://localhost:3000/catalog/authors");
-  return response.data.authorsList;
-};
+import { fetchAuthors } from "../../api/AuthorApi";
 
 const renderAuthors = (authors) => {
   const authorsListItems = authors.map((author) => (
