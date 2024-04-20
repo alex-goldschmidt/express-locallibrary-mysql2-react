@@ -72,11 +72,15 @@ exports.authorCreatePost = [
     });
 
     if (authorExists) {
-      res.redirect(`/catalog/author/${authorExists.authorId}`);
-    } else {
-      const data = await Author.create(author);
-      res.redirect(`/catalog/author/${data.id}`);
+      return;
     }
+
+    const data = await Author.create(author);
+    const jsonResponse = res.json({
+      newAuthor: data,
+    });
+
+    return jsonResponse;
   }),
 ];
 
@@ -109,17 +113,17 @@ exports.authorDeletePost = asyncHandler(async (req, res, next) => {
     Author.queryBooksByAuthorId(authorId),
   ]);
 
-  if (allBooksByAuthor.length > 0) {
-    res.render("authorDelete", {
-      title: "Delete Author",
-      author: author,
-      authorBooks: allBooksByAuthor,
-    });
+  if (!author || allBooksByAuthor.length > 0) {
     return;
-  } else {
-    await Author.deleteByAuthorId(authorId);
-    res.redirect("/catalog/authors");
   }
+
+  const data = await Author.deleteByAuthorId(authorId);
+
+  const jsonResponse = res.json({
+    deletedAuthor: data,
+  });
+
+  return jsonResponse;
 });
 
 exports.authorUpdateGet = asyncHandler(async (req, res, next) => {
@@ -171,6 +175,11 @@ exports.authorUpdatePost = [
     }
     await Author.updateByAuthorId(author, authorId);
     author = await Author.queryByAuthorId(authorId);
-    res.redirect(`/catalog/author/${author.authorId}`);
+
+    const jsonResponse = res.json({
+      updatedAuthor: author,
+    });
+
+    return jsonResponse;
   }),
 ];

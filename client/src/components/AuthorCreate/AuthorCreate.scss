@@ -1,0 +1,14 @@
+.form__author {
+  display: grid;
+  gap: 5rem;
+
+  &-item {
+    display: grid;
+    gap: 2rem;
+
+    &--input {
+      width: 40rem;
+      height: 2rem;
+    }
+  }
+}

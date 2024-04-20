@@ -1,0 +1,11 @@
+form {
+  display: grid;
+  place-content: center;
+}
+
+.submit {
+  margin-top: 3rem;
+  max-width: 15% !important;
+  text-align: center;
+  border-radius: 5rem;
+}
