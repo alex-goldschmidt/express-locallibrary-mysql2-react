@@ -33,9 +33,9 @@ export const createAuthor = async (authorData) => {
     authorData
   );
 
-  if (!response || response.status !== 201) {
+  if (!response || response.status !== 200) {
     throw new Error("Failed to create author");
   }
 
-  return response.data;
+  return response;
 };

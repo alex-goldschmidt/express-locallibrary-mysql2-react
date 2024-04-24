@@ -3,9 +3,9 @@ import "./FormItem.scss";
 
 export const FormItem = ({ renderFunction, onSubmitFunction }) => {
   return (
-    <form method="POST">
+    <form method="POST" onSubmit={onSubmitFunction}>
       {renderFunction()}
-      <button type="submit" className="submit" onSubmit={onSubmitFunction}>
+      <button type="submit" className="submit">
         Submit
       </button>
     </form>
