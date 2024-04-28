@@ -1,6 +1,7 @@
 const Author = require("../models/author.model");
 const { asyncHandler } = require("../utils/asyncErrorHandler");
 const { body, validationResult } = require("express-validator");
+const validator = require("validator");
 
 exports.queryAllAuthors = asyncHandler(async (req, res, next) => {
   const authorsList = await Author.queryAllAuthors();
@@ -39,31 +40,29 @@ exports.authorCreateGet = asyncHandler(async (req, res, next) => {
 });
 
 exports.authorCreatePost = [
-  body("name")
-    .trim()
-    .isLength({ min: 1 })
-    .escape()
-    .withMessage("Name must be specified."),
-  body("dateOfBirth", "Invalid date of birth")
-    .optional({ values: "falsy" })
-    .isISO8601()
-    .toDate(),
-  body("dateOfDeath", "Invalid date of death")
-    .optional({ values: "falsy" })
-    .isISO8601()
-    .toDate(),
-
   asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
-
     const author = new Author({
-      name: req.body.name,
+      name: req.body.name.trim(),
       dateOfBirth: req.body.dateOfBirth,
       dateOfDeath: req.body.dateOfDeath ? req.body.dateOfDeath : null,
     });
 
-    if (!errors.isEmpty()) {
-      const badRequest = res.status(400).json({ errors: errors.array() });
+    const errors = [];
+
+    if (!validator.isLength(author.name, { min: 1 })) {
+      errors.push({ msg: "Name must be specified." });
+    }
+
+    if (author.dateOfBirth === "" || !validator.isISO8601(author.dateOfBirth)) {
+      errors.push({ msg: "Invalid date of birth" });
+    }
+
+    if (author.dateOfDeath === "" || !validator.isISO8601(author.dateOfDeath)) {
+      errors.push({ msg: "Invalid date of death" });
+    }
+
+    if (errors.length > 0) {
+      const badRequest = res.status(400).json({ errors: errors });
       return badRequest;
     }
 

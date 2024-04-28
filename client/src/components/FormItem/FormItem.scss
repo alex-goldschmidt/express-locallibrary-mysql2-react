@@ -9,3 +9,9 @@ form {
   text-align: center;
   border-radius: 5rem;
 }
+
+.errors-list {
+  &__error {
+    color: red;
+  }
+}

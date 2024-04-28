@@ -9,6 +9,7 @@ export const AuthorCreate = () => {
     dateOfBirth: "",
     dateOfDeath: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -17,6 +18,22 @@ export const AuthorCreate = () => {
       ...authorData,
       [name]: value,
     });
+  };
+
+  const validateForm = () => {
+    let errors = {};
+
+    if (authorData.dateOfBirth === "" || !authorData.dateOfDeath) {
+      errors.dateOfBirth = "Invalid date of birth";
+    }
+
+    if (authorData.dateOfDeath === "" || !authorData.dateOfDeath) {
+      errors.dateOfDeath = "Invalid date of death";
+    }
+
+    setErrors(errors);
+
+    return errors;
   };
 
   const renderAuthorForm = () => (
@@ -61,13 +78,20 @@ export const AuthorCreate = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    validateForm();
+
+    const validationErrors = validateForm();
+    if (Object.keys(validationErrors).length > 0) {
+      return;
+    }
+
     try {
       const result = await createAuthor(authorData);
       const newAuthor = result.data.newAuthor;
       const redirectUrl = `http://localhost:5173/author/${newAuthor.id}`;
       window.location.href = redirectUrl;
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
@@ -75,6 +99,7 @@ export const AuthorCreate = () => {
     <FormItem
       renderFunction={renderAuthorForm}
       onSubmitFunction={handleSubmit}
+      errors={errors}
     />
   );
 };

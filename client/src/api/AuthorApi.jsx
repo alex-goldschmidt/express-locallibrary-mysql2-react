@@ -1,4 +1,5 @@
 import axios from "axios";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const fetchAuthor = async (authorId) => {
   const response = await axios.get(
@@ -27,15 +28,10 @@ export const fetchAuthors = async () => {
   return response.data.authorsList;
 };
 
-export const createAuthor = async (authorData) => {
+export const createAuthor = asyncHandler(async (authorData) => {
   const response = await axios.post(
     `http://localhost:3000/catalog/author/create`,
     authorData
   );
-
-  if (!response || response.status !== 200) {
-    throw new Error("Failed to create author");
-  }
-
   return response;
-};
+});
