@@ -1,4 +1,5 @@
 import axios from "axios";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const fetchGenre = async (genreId) => {
   const response = await axios.get(
@@ -26,3 +27,11 @@ export const fetchGenres = async () => {
 
   return response.data.genresList;
 };
+
+export const createGenre = asyncHandler(async (genreData) => {
+  const response = await axios.post(
+    `http://localhost:3000/catalog/genre/create`,
+    genreData
+  );
+  return response;
+});

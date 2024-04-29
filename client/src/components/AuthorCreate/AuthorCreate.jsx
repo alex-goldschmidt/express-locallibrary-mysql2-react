@@ -23,7 +23,7 @@ export const AuthorCreate = () => {
   const validateForm = () => {
     let errors = {};
 
-    if (authorData.dateOfBirth === "" || !authorData.dateOfDeath) {
+    if (authorData.dateOfBirth === "" || !authorData.dateOfBirth) {
       errors.dateOfBirth = "Invalid date of birth";
     }
 
@@ -38,6 +38,7 @@ export const AuthorCreate = () => {
 
   const renderAuthorForm = () => (
     <div className="form__author">
+      <h1>Create Author</h1>
       <div className="form__author-item">
         <label htmlFor="name">Full Name:</label>
         <input
@@ -88,7 +89,7 @@ export const AuthorCreate = () => {
     try {
       const result = await createAuthor(authorData);
       const newAuthor = result.data.newAuthor;
-      const redirectUrl = `http://localhost:5173/author/${newAuthor.id}`;
+      const redirectUrl = `/author/${newAuthor.id}`;
       window.location.href = redirectUrl;
     } catch (error) {
       console.log(error);

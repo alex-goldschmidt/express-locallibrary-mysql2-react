@@ -1,6 +1,7 @@
 const Genre = require("../models/genre.model.js");
 const { asyncHandler } = require("../utils/asyncErrorHandler");
 const { body, validationResult } = require("express-validator");
+const validator = require("validator");
 
 // Display list of all Genre.
 exports.queryAllGenres = asyncHandler(async (req, res, next) => {
@@ -39,34 +40,37 @@ exports.genreCreateGet = asyncHandler(async (req, res, next) => {
 });
 
 exports.genreCreatePost = [
-  body("genreName", "Genre name must contain at least 3 characters")
-    .trim()
-    .isLength({ min: 3 })
-    .escape(),
-
   asyncHandler(async (req, res, next) => {
-    const errors = validationResult(req);
+    const genre = new Genre({ genreName: req.body.genreName.trim() });
 
-    const genre = new Genre({ genreName: req.body.genreName });
+    const errors = [];
 
-    if (errors.isEmpty()) {
-      const genreExists = await Genre.queryByGenreName({
-        genreName: req.body.genreName,
-      });
-      if (genreExists) {
-        res.redirect(`/catalog/genre/${genreExists.genreId}`);
-      } else {
-        const data = await Genre.create(genre);
-        res.redirect(`/catalog/genre/${data.genreId}`);
-      }
-    } else {
-      res.render("genreForm", {
-        title: "Create Genre",
-        genre: genre,
-        errors: errors.array(),
-      });
-      return;
+    if (!validator.isLength(genre.genreName, { min: 3 })) {
+      errors.push({ msg: "Genre Name must be specified." });
     }
+
+    if (errors.length > 0) {
+      const badRequest = res.status(400).json({ errors: errors });
+      return badRequest;
+    }
+
+    const existingGenre = await Genre.queryByGenreName({
+      genreName: req.body.genreName,
+    });
+
+    if (existingGenre) {
+      const existingGenreResponse = res.json({
+        existingGenre: existingGenre,
+      });
+      return existingGenreResponse;
+    }
+
+    const newGenre = await Genre.create(genre);
+    const genreCreatedResponse = res.json({
+      newGenre: newGenre,
+    });
+
+    return genreCreatedResponse;
   }),
 ];
 
