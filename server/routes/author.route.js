@@ -2,8 +2,6 @@ var express = require("express");
 const authorController = require("../controllers/author.controller.js");
 var router = express.Router();
 
-router.get("/author/create", authorController.authorCreateGet);
-
 router.post("/author/create", authorController.authorCreatePost);
 
 router.get("/author/:id/delete", authorController.authorDeleteGet);

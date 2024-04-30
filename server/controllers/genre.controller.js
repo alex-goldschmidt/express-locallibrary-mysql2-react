@@ -34,11 +34,6 @@ exports.queryBooksByGenreId = asyncHandler(async (req, res, next) => {
   return response;
 });
 
-// Display genre create form on GET.
-exports.genreCreateGet = asyncHandler(async (req, res, next) => {
-  res.render("genreForm", { title: "Create Genre" });
-});
-
 exports.genreCreatePost = [
   asyncHandler(async (req, res, next) => {
     const genre = new Genre({ genreName: req.body.genreName.trim() });
@@ -54,9 +49,7 @@ exports.genreCreatePost = [
       return badRequest;
     }
 
-    const existingGenre = await Genre.queryByGenreName({
-      genreName: req.body.genreName,
-    });
+    const existingGenre = await Genre.queryByGenreName(genre.genreName);
 
     if (existingGenre) {
       const existingGenreResponse = res.json({

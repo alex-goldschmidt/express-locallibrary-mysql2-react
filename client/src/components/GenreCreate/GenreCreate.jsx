@@ -51,7 +51,6 @@ export const GenreCreate = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    validateForm();
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -60,6 +59,15 @@ export const GenreCreate = () => {
 
     try {
       const result = await createGenre(genreData);
+
+      if (result.data.existingGenre) {
+        setErrors((prevErrors) => ({
+          ...prevErrors, //ensures previous errors are saved
+          genre: "This genre already exists.",
+        }));
+        return;
+      }
+
       const newGenre = result.data.newGenre;
       const redirectUrl = `/genre/${newGenre.genreId}`;
       window.location.href = redirectUrl;

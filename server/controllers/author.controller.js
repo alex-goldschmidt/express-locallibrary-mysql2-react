@@ -35,10 +35,6 @@ exports.queryByAuthorId = asyncHandler(async (req, res, next) => {
   return response;
 });
 
-exports.authorCreateGet = asyncHandler(async (req, res, next) => {
-  res.render("authorForm", { title: "Create Author" });
-});
-
 exports.authorCreatePost = [
   asyncHandler(async (req, res, next) => {
     const author = new Author({

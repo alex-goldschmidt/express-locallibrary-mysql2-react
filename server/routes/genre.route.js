@@ -2,8 +2,6 @@ var express = require("express");
 const genreController = require("../controllers/genre.controller.js");
 var router = express.Router();
 
-router.get("/genre/create", genreController.genreCreateGet);
-
 router.post("/genre/create", genreController.genreCreatePost);
 
 router.get("/genre/:id/delete", genreController.genreDeleteGet);
