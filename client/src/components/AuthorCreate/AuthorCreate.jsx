@@ -79,7 +79,6 @@ export const AuthorCreate = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    validateForm();
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {

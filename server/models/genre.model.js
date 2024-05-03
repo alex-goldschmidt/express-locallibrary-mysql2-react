@@ -37,7 +37,7 @@ class Genre {
     return result[0];
   }
 
-  static async queryAllByGenreName(genreName) {
+  static async queryGenreByName(genreName) {
     const [result] = await db.query("SELECT * FROM genre WHERE genreName = ?", [
       genreName,
     ]);

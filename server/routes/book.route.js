@@ -2,8 +2,6 @@ var express = require("express");
 const bookController = require("../controllers/book.controller.js");
 var router = express.Router();
 
-router.get("/book/create", bookController.bookCreateGet);
-
 router.post("/book/create", bookController.bookCreatePost);
 
 router.get("/book/:id/delete", bookController.bookDeleteGet);

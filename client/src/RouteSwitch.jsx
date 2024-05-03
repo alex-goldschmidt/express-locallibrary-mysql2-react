@@ -10,6 +10,7 @@ import BookDetail from "./components/BookDetail/BookDetail.jsx";
 import BookInstanceDetail from "./components/BookInstanceDetail/BookInstanceDetail.jsx";
 import AuthorCreate from "./components/AuthorCreate/AuthorCreate.jsx";
 import GenreCreate from "./components/GenreCreate/GenreCreate.jsx";
+import BookCreate from "./components/BookCreate/BookCreate.jsx";
 
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
 
@@ -28,6 +29,7 @@ const RouteSwitch = () => {
         <Route path="/book/:bookId" element={<BookDetail />} />
         <Route path="/author/create" element={<AuthorCreate />} />
         <Route path="/genre/create" element={<GenreCreate />} />
+        <Route path="/book/create" element={<BookCreate />} />
         <Route
           path="/bookInstance/:bookInstanceId"
           element={<BookInstanceDetail />}

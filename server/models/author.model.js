@@ -70,11 +70,11 @@ class Author {
     return result[0];
   }
 
-  static async queryAllAuthorsByAuthorName(name) {
+  static async queryAuthorByName(name) {
     const [rows] = await db.query(`SELECT * FROM author WHERE name = ?`, [
       name,
     ]);
-    return rows;
+    return rows[0];
   }
 
   static async updateByAuthorId(author, authorId) {

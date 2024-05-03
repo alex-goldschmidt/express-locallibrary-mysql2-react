@@ -1,4 +1,5 @@
 import axios from "axios";
+import { asyncHandler } from "../utils/asyncHandler";
 
 export const fetchBook = async (bookId) => {
   const response = await axios.get(
@@ -24,3 +25,11 @@ export const fetchBooks = async () => {
 
   return response.data.bookList;
 };
+
+export const createBook = asyncHandler(async (bookData) => {
+  const response = await axios.post(
+    `http://localhost:3000/catalog/book/create`,
+    bookData
+  );
+  return response;
+});
